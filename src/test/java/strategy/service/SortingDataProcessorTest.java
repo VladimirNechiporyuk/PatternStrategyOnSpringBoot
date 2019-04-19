@@ -14,7 +14,7 @@ import static org.mockito.Mockito.when;
 public class SortingDataProcessorTest {
 
     @Autowired
-    SortingDataProcessor sortingDataProcessor;
+    private SortingDataProcessor sortingDataProcessor;
 
     private int[] arrayIn = {4, 5, 1, 3, 2};
     private int[] arrayOut = {1, 2, 3, 4, 5};

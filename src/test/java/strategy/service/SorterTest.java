@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import strategy.StrategyApp;
 import strategy.data.RandomDataGenerator;
+import strategy.starter.Sorter;
 
 import java.util.Arrays;
 
