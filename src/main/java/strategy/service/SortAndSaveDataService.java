@@ -8,7 +8,7 @@ import strategy.repositiry.ArrayRepository;
 import java.util.Arrays;
 
 @Service
-public class SortingDataService {
+public class SortAndSaveDataService {
 
     @Autowired
     private ArrayRepository repository;
@@ -24,7 +24,9 @@ public class SortingDataService {
         int[] initialData = Arrays.copyOf(initialArray, initialArray.length);
         int[] processedData = dataProcessor.process(initialArray);
         ArrayEntity arrayEntity = new ArrayEntity(initialData, processedData);
+        //todo: slf4j, use logger instead of System.out
         System.out.println(">>>>>>>>>>>>>> Array was created");
+
         return repository.save(arrayEntity);
     }
 }

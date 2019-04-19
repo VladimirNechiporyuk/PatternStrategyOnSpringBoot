@@ -26,6 +26,10 @@ public class ArrayEntity {
     @JsonProperty("dataCreated")
     private Date dateCreated;
 
+    public ArrayEntity() {
+        this.dateCreated = new Date();
+    }
+
     public ArrayEntity(int[] initialData, int[] processedData) {
         this.initialData = initialData;
         this.processedData = processedData;
