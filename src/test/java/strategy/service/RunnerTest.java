@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import strategy.StrategyApp;
 import strategy.data.RandomDataGenerator;
-import strategy.starter.Sorter;
+import strategy.starter.Runner;
 
 import java.util.Arrays;
 
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = StrategyApp.class)
-public class SorterTest {
+public class RunnerTest {
 
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
@@ -34,7 +34,7 @@ public class SorterTest {
     private int numBound;
 
     @Autowired
-    private Sorter sorter;
+    private Runner runner;
 
     @Autowired
     private SortingDataProcessor dataProcessor;
@@ -47,7 +47,7 @@ public class SorterTest {
         int[] array = {5, 2, 3, 1, 4, 6};
         when(dataGenerator.generateData(arrayLength, numBound)).thenReturn(array);
 
-        sorter.run(new DefaultApplicationArguments(new String[]{}));
+        runner.run(new DefaultApplicationArguments(new String[]{}));
 
         System.out.println(">>>>>>>>>>" + systemOutRule.getLog());
 

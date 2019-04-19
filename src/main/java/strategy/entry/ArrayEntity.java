@@ -15,27 +15,27 @@ public class ArrayEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private ObjectId id;
 
-    private int[] inputtedArray;
-    private int[] outputtedArray;
+    private int[] initialData;
+    private int[] processedData;
     private Date dateCreated;
     private Date dateModified;
 
-    public ArrayEntity(int[] inputtedArray, Date dateCreated) {
-        this.inputtedArray = inputtedArray;
-        this.dateCreated = dateCreated;
-        outputtedArray = new int[0];
+    public ArrayEntity(int[] initialData, int[] processedData) {
+        this.initialData = initialData;
+        this.processedData = processedData;
+        this.dateCreated = new Date();
     }
 
     public ObjectId getId() {
         return id;
     }
 
-    public int[] getInputtedArray() {
-        return inputtedArray;
+    public int[] getInitialData() {
+        return initialData;
     }
 
-    public int[] getOutputtedArray() {
-        return outputtedArray;
+    public int[] getProcessedData() {
+        return processedData;
     }
 
     public Date getTimestampCreated() {
@@ -46,11 +46,7 @@ public class ArrayEntity {
         return dateModified;
     }
 
-    public void setOutputtedArray(int[] outputtedArray) {
-        this.outputtedArray = outputtedArray;
-    }
-
-    public void setTimestampModified(Date dateModified) {
+    public void setDateModified(Date dateModified) {
         this.dateModified = dateModified;
     }
 }
