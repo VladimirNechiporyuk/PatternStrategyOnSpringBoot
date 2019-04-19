@@ -12,7 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import strategy.StrategyApp;
 import strategy.data.RandomDataGenerator;
-import strategy.starter.Runner;
 
 import java.util.Arrays;
 
@@ -33,8 +32,8 @@ public class RunnerTest {
     @Value("${array.bound:2}")
     private int numBound;
 
-    @Autowired
-    private Runner runner;
+//    @Autowired
+//    private Runner runner;
 
     @Autowired
     private SortingDataProcessor dataProcessor;
@@ -47,7 +46,7 @@ public class RunnerTest {
         int[] array = {5, 2, 3, 1, 4, 6};
         when(dataGenerator.generateData(arrayLength, numBound)).thenReturn(array);
 
-        runner.run(new DefaultApplicationArguments(new String[]{}));
+//        runner.run(new DefaultApplicationArguments(new String[]{}));
 
         System.out.println(">>>>>>>>>>" + systemOutRule.getLog());
 

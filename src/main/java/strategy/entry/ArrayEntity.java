@@ -1,5 +1,6 @@
 package strategy.entry;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,12 +14,17 @@ public class ArrayEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty("id")
     private ObjectId id;
 
+    @JsonProperty("initialData")
     private int[] initialData;
+
+    @JsonProperty("processingData")
     private int[] processedData;
+
+    @JsonProperty("dataCreated")
     private Date dateCreated;
-    private Date dateModified;
 
     public ArrayEntity(int[] initialData, int[] processedData) {
         this.initialData = initialData;
@@ -42,11 +48,11 @@ public class ArrayEntity {
         return dateCreated;
     }
 
-    public Date getTimestampModified() {
-        return dateModified;
+    public void setInitialData(int[] initialData) {
+        this.initialData = initialData;
     }
 
-    public void setDateModified(Date dateModified) {
-        this.dateModified = dateModified;
+    public void setProcessedData(int[] processedData) {
+        this.processedData = processedData;
     }
 }
