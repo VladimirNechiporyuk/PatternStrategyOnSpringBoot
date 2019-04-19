@@ -1,5 +1,6 @@
 package strategy.entry;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,7 +13,7 @@ public class ArrayEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private ObjectId id;
 
     private int[] inputtedArray;
     private int[] outputtedArray;
@@ -25,7 +26,7 @@ public class ArrayEntity {
         outputtedArray = new int[0];
     }
 
-    public int getId() {
+    public ObjectId getId() {
         return id;
     }
 
