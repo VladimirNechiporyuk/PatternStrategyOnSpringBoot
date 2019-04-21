@@ -7,7 +7,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import strategy.StrategyApp;
 
-import static org.mockito.Mockito.when;
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = StrategyApp.class)
@@ -21,6 +23,6 @@ public class SortingDataProcessorTest {
 
     @Test
     public void processTest() {
-        when(sortingDataProcessor.process(arrayIn)).thenReturn(arrayOut);
+        assertEquals(Arrays.toString(sortingDataProcessor.process(arrayIn)), Arrays.toString(arrayOut));
     }
 }
