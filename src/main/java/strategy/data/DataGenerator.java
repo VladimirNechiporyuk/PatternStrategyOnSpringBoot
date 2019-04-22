@@ -1,5 +1,5 @@
 package strategy.data;
 
-public interface DataSource {
+public interface DataGenerator {
     int[] generateData(int arrayLength, int numBound);
 }

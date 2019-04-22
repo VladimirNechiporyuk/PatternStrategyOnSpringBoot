@@ -13,16 +13,16 @@ import static junit.framework.TestCase.assertEquals;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = StrategyApp.class)
-public class SortingDataProcessorTest {
+public class SortingDataSortingTest {
 
     @Autowired
-    private SortingDataProcessor sortingDataProcessor;
+    private SortingDataSorting sortingDataProcessor;
 
     private int[] arrayForProcess = {4, 5, 1, 3, 2};
     private int[] arrayProcessed = {1, 2, 3, 4, 5};
 
     @Test
     public void processTest() {
-        assertEquals(Arrays.toString(sortingDataProcessor.process(arrayForProcess)), Arrays.toString(arrayProcessed));
+        assertEquals(Arrays.toString(sortingDataProcessor.sorting(arrayForProcess)), Arrays.toString(arrayProcessed));
     }
 }

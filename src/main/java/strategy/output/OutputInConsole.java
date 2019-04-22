@@ -1,4 +1,4 @@
-package strategy.outers;
+package strategy.output;
 
 import org.springframework.stereotype.Component;
 

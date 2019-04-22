@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 
 @Component
-public class RandomDataGenerator implements DataSource {
+public class RandomDataGenerator implements DataGenerator {
 
     @Override
     public int[] generateData(int arrayLength, int numBound) {

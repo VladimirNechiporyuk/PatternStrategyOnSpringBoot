@@ -1,4 +1,4 @@
-package strategy.entry;
+package strategy.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.types.ObjectId;
@@ -57,10 +57,6 @@ public class ArrayEntity {
 
     public Date getModifiedData() {
         return modifiedData;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
     }
 
     public void setInitialData(int[] initialData) {
