@@ -59,6 +59,10 @@ public class ArrayEntity {
         return modifiedData;
     }
 
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
     public void setInitialData(int[] initialData) {
         this.initialData = initialData;
     }

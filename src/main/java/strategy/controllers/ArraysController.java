@@ -33,24 +33,25 @@ public class ArraysController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ArrayEntity> sortAndSaveArrayOfNumbers(int[] array) {
+    public @ResponseBody
+    ResponseEntity<ArrayEntity> sortAndSaveArrayOfNumbers(int[] array) {
         processingDataService.sortAndSaveArrayOfNumbers(array);
         log.info("Data saved");
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ArrayEntity> modyfyArray(ObjectId id, int[] array) {
-        processingDataService.modifyArray(id, array);
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ArrayEntity> modyfyArray(@PathVariable("id") ObjectId id) {
+        int[] newArray = {10, 11, 13, 15, 9};
+        processingDataService.modifyArray(id, newArray);
         log.info(String.format("Data with id %s was modified", id.toString()));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<ArrayEntity> deleteArray(@PathVariable ObjectId id) {
         processingDataService.deleteArray(id);
         log.info(String.format("Data with id %s deleted", id.toString()));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 }

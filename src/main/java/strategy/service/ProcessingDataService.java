@@ -33,10 +33,10 @@ public class ProcessingDataService {
         int[] initialData = Arrays.copyOf(initialArray, initialArray.length);
         int[] processedData = dataProcessor.process(initialArray);
         ArrayEntity arrayEntity = new ArrayEntity(initialData, processedData);
-        //todo: slf4j, use logger instead of System.out
-        log.info(String.format("%s %s %s %s",
+        log.info(String.format("%s %s %s %s %s",
                 "Data for saving:",
                 Arrays.toString(arrayEntity.getInitialData()),
+                "Data saved",
                 Arrays.toString(arrayEntity.getProcessedData()),
                 arrayEntity.getTimestampCreated().toString()));
         repository.save(arrayEntity);
@@ -48,15 +48,18 @@ public class ProcessingDataService {
         ArrayEntity modifiedArray = findArrayById(id);
         modifiedArray.setInitialData(initialData);
         modifiedArray.setProcessedData(processedData);
-        log.info(String.format("%s %s %s %s",
+        log.info(String.format("%s %s %s %s %s %s %s",
+                "Array with id:",
+                modifiedArray.getId(),
                 "Data for modify:",
                 Arrays.toString(modifiedArray.getInitialData()),
+                "Data modified",
                 Arrays.toString(modifiedArray.getProcessedData()),
                 modifiedArray.getTimestampCreated().toString()));
         repository.save(modifiedArray);
     }
 
     public void deleteArray(ObjectId id) {
-//        repository.delete(repository.findById(id));
+        repository.delete(repository.findByid(id));
     }
 }
