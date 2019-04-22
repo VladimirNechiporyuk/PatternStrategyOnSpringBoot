@@ -1,5 +1,7 @@
 package strategy.controllers;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,6 +12,8 @@ import strategy.service.ProcessingDataService;
 @RestController
 @RequestMapping(path = "/arrays")
 public class ArraysController {
+
+    private final Log log = LogFactory.getLog(ProcessingDataService.class);
 
     @Autowired
     private ProcessingDataService processingDataService;
@@ -22,8 +26,9 @@ public class ArraysController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ArrayEntity sortAndSaveArrayOfNumbers(int[] array) {
-        return processingDataService.sortAndSaveArrayOfNumbers(array);
+    public void sortAndSaveArrayOfNumbers(int[] array) {
+        processingDataService.sortAndSaveArrayOfNumbers(array);
+        log.info("Data saved");
     }
 
 //    @DeleteMapping
