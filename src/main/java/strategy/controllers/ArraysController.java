@@ -41,8 +41,8 @@ public class ArraysController {
     }
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ArrayEntity> modyfyArray(@PathVariable("id") ObjectId id) {
-        int[] newArray = {10, 11, 13, 15, 9};
+    public ResponseEntity<ArrayEntity> modyfyArray(@PathVariable("id") ObjectId id,
+                                                   int[] newArray) {
         processingDataService.modifyArray(id, newArray);
         log.info(String.format("Data with id %s was modified", id.toString()));
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
