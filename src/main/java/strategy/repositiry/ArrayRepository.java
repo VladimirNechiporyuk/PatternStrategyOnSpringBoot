@@ -7,5 +7,5 @@ import strategy.entry.ArrayEntity;
 
 @Repository
 public interface ArrayRepository extends MongoRepository<ArrayEntity, ObjectId> {
-
+    ArrayEntity findByid(ObjectId id);
 }

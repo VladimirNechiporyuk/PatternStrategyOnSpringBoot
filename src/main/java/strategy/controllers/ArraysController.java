@@ -2,9 +2,11 @@ package strategy.controllers;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import strategy.entry.ArrayEntity;
 import strategy.service.ProcessingDataService;
@@ -24,15 +26,31 @@ public class ArraysController {
         return processingDataService.getAllArrays();
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public void sortAndSaveArrayOfNumbers(int[] array) {
-        processingDataService.sortAndSaveArrayOfNumbers(array);
-        log.info("Data saved");
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    ArrayEntity getArrayById(@PathVariable("id") ObjectId id) {
+        return processingDataService.findArrayById(id);
     }
 
-//    @DeleteMapping
-//    public void deleteArray(int[] array) {
-//        return processingDataService.deleteArray(array);
-//    }
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<ArrayEntity> sortAndSaveArrayOfNumbers(int[] array) {
+        processingDataService.sortAndSaveArrayOfNumbers(array);
+        log.info("Data saved");
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ArrayEntity> modyfyArray(ObjectId id, int[] array) {
+        processingDataService.modifyArray(id, array);
+        log.info(String.format("Data with id %s was modified", id.toString()));
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<ArrayEntity> deleteArray(@PathVariable ObjectId id) {
+        processingDataService.deleteArray(id);
+        log.info(String.format("Data with id %s deleted", id.toString()));
+        return ResponseEntity.ok().build();
+    }
 }

@@ -1,16 +1,13 @@
 package strategy.spliters;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+import java.util.Arrays;
 
 public class SpliterFromStringToArray {
 
-    public static List<Integer> splitStringToIntArray(String inputtedString, String symbolForSplit) {
+    public static int[] splitStringToIntArray(String inputtedString, String symbolForSplit) {
         //todo: do it with streams
-        List<Integer> integers = new ArrayList<>();
-        Stream.of(inputtedString, symbolForSplit)
-                .forEach(n -> integers.add(Integer.valueOf(n)));
-        return integers;
+        return Arrays.stream(inputtedString.split(symbolForSplit))
+                .mapToInt(Integer::parseInt)
+                .toArray();
     }
 }

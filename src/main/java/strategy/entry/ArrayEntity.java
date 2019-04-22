@@ -14,7 +14,6 @@ public class ArrayEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonProperty("id")
     private ObjectId id;
 
     @JsonProperty("initialData")
@@ -26,6 +25,9 @@ public class ArrayEntity {
     @JsonProperty("dataCreated")
     private Date dateCreated;
 
+    @JsonProperty("dataCreated")
+    private Date modifiedData;
+
     public ArrayEntity() {
         this.dateCreated = new Date();
     }
@@ -34,6 +36,7 @@ public class ArrayEntity {
         this.initialData = initialData;
         this.processedData = processedData;
         this.dateCreated = new Date();
+        this.modifiedData = new Date();
     }
 
     public ObjectId getId() {
@@ -52,11 +55,16 @@ public class ArrayEntity {
         return dateCreated;
     }
 
+    public Date getModifiedData() {
+        return modifiedData;
+    }
+
     public void setInitialData(int[] initialData) {
         this.initialData = initialData;
     }
 
     public void setProcessedData(int[] processedData) {
         this.processedData = processedData;
+        this.modifiedData = new Date();
     }
 }
