@@ -1,7 +1,8 @@
 package strategy.service;
 
-import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import strategy.entity.ArrayEntity;
@@ -13,8 +14,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
-@Slf4j
 public class ProcessingDataService implements DataProcessing {
+
+    private final Logger log = LoggerFactory.getLogger(ProcessingDataService.class);
 
     @Autowired
     private ArrayRepository repository;
@@ -26,7 +28,7 @@ public class ProcessingDataService implements DataProcessing {
     public Iterable<ArrayEntity> getAllArrays() {
         List<ArrayEntity> allArrays = repository.findAll();
         if (allArrays.isEmpty()) {
-            log.info("No arrays found");
+            log.error("No arrays found");
             throw new EmptyStackException();
         } else {
             return allArrays;
@@ -38,7 +40,7 @@ public class ProcessingDataService implements DataProcessing {
         if (repository.findById(id).isPresent()) {
             return repository.findById(id).get();
         } else {
-            log.info("Data with id: {} not found", id);
+            log.error("Data with id: {} not found", id);
             throw new NoSuchElementException();
         }
     }

@@ -1,6 +1,8 @@
 package strategy.controllers;
 
+import com.github.fakemongo.junit.FongoRule;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class ArraysControllerTest {
 
     @Autowired
     private ProcessingDataService processingDataService;
+
+    @Rule
+    public FongoRule fongoRule = new FongoRule();
 
     @Before
     public void configurationForTest() {
