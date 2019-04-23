@@ -1,18 +1,16 @@
 package strategy.controllers;
 
-import com.github.fakemongo.junit.FongoRule;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.RestTemplate;
 import strategy.StrategyApp;
+import strategy.entity.ArrayEntity;
+import strategy.repository.ArrayRepository;
 import strategy.service.ProcessingDataService;
 
-import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -21,34 +19,23 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(classes = StrategyApp.class)
 public class ArraysControllerTest {
 
-    private RestTemplate restTemplate;
-
     @Autowired
     private ProcessingDataService processingDataService;
 
-    @Rule
-    public FongoRule fongoRule = new FongoRule();
-
-    @Before
-    public void configurationForTest() {
-        restTemplate = new RestTemplate();
-    }
-
-    @Test
-    public void getAllArraysTest() {
-        String dbURL = "http://localhost:8080/arrays";
-        String result = restTemplate.getForObject(dbURL, String.class);
-        assertNotNull(result);
-    }
+    @Autowired
+    private ArrayRepository repository;
 
     @Test
     public void postNewArrayTest() {
         int[] newArray = {5, 3, 1, 6, 2, 4};
+        int[] testArray = {1, 2, 3, 4, 5, 6};
         processingDataService.sortAndSaveArrayOfNumbers(newArray);
-        String dbURL = "http://localhost:8080/arrays";
-        String result = restTemplate.getForObject(dbURL, String.class);
+        List<ArrayEntity> result = repository.findAll();
         assertNotNull(result);
-        assertTrue(result.contains(Arrays.toString(newArray)));
+        assertTrue(result.contains(testArray));
+    }
 
+    @Test
+    public void getAllArraysTest() {
     }
 }

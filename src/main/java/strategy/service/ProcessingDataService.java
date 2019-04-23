@@ -1,8 +1,7 @@
 package strategy.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import strategy.entity.ArrayEntity;
@@ -14,15 +13,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Slf4j
 public class ProcessingDataService implements DataProcessing {
-
-    private final Logger log = LoggerFactory.getLogger(ProcessingDataService.class);
 
     @Autowired
     private ArrayRepository repository;
 
     @Autowired
-    private SortingDataSorting dataProcessor;
+    private SortingDataProcessor dataProcessor;
 
     @Override
     public Iterable<ArrayEntity> getAllArrays() {
@@ -48,7 +46,7 @@ public class ProcessingDataService implements DataProcessing {
     @Override
     public void sortAndSaveArrayOfNumbers(int[] initialArray) {
         int[] initialData = Arrays.copyOf(initialArray, initialArray.length);
-        int[] processedData = dataProcessor.sorting(initialArray);
+        int[] processedData = dataProcessor.sort(initialArray);
         ArrayEntity arrayEntity = new ArrayEntity(initialData, processedData);
         ArrayEntity savedEntity = repository.save(arrayEntity);
 
@@ -62,7 +60,7 @@ public class ProcessingDataService implements DataProcessing {
     @Override
     public void modifyArray(ObjectId id, int[] newArray) {
         int[] initialData = Arrays.copyOf(newArray, newArray.length);
-        int[] processedData = dataProcessor.sorting(newArray);
+        int[] processedData = dataProcessor.sort(newArray);
         ArrayEntity modifiedArray = findArrayById(id);
         modifiedArray.setInitialData(initialData);
         modifiedArray.setProcessedData(processedData);

@@ -5,13 +5,13 @@ import org.springframework.stereotype.Component;
 import strategy.service.sorting.SortingStrategy;
 
 @Component
-public class SortingDataSorting implements DataSorting {
+public class SortingDataProcessor implements DataSorting {
 
     @Autowired
     private SortingStrategy strategy;
 
     @Override
-    public int[] sorting(int[] array) {
+    public int[] sort(int[] array) {
         return strategy.sort(array);
     }
 }
