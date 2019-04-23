@@ -1,6 +1,7 @@
 package strategy.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,10 +11,12 @@ import javax.persistence.GenerationType;
 import java.util.Date;
 
 @Document(collection = "strategy")
+@Data
 public class ArrayEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty("_id")
     private ObjectId id;
 
     @JsonProperty("initialData")
@@ -25,7 +28,7 @@ public class ArrayEntity {
     @JsonProperty("dataCreated")
     private Date dateCreated;
 
-    @JsonProperty("dataCreated")
+    @JsonProperty("dataModified")
     private Date modifiedData;
 
     public ArrayEntity() {
@@ -37,30 +40,6 @@ public class ArrayEntity {
         this.processedData = processedData;
         this.dateCreated = new Date();
         this.modifiedData = new Date();
-    }
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public int[] getInitialData() {
-        return initialData;
-    }
-
-    public int[] getProcessedData() {
-        return processedData;
-    }
-
-    public Date getTimestampCreated() {
-        return dateCreated;
-    }
-
-    public Date getModifiedData() {
-        return modifiedData;
-    }
-
-    public void setInitialData(int[] initialData) {
-        this.initialData = initialData;
     }
 
     public void setProcessedData(int[] processedData) {

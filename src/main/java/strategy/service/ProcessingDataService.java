@@ -1,20 +1,24 @@
 package strategy.service;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import strategy.entity.ArrayEntity;
 import strategy.repository.ArrayRepository;
 
 import java.util.Arrays;
+import java.util.EmptyStackException;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
-public class ProcessingDataService implements DataProcessing{
+@Slf4j
+public class ProcessingDataService implements DataProcessing {
 
-    private final Log log = LogFactory.getLog(ProcessingDataService.class);
+    private final Logger logger = LoggerFactory.getLogger(ProcessingDataService.class);
 
     @Autowired
     private ArrayRepository repository;
@@ -24,7 +28,13 @@ public class ProcessingDataService implements DataProcessing{
 
     @Override
     public Iterable<ArrayEntity> getAllArrays() {
-        return repository.findAll();
+        List<ArrayEntity> allArrays = repository.findAll();
+        if (allArrays.isEmpty()) {
+            logger.info("No arrays found");
+            throw new EmptyStackException();
+        } else {
+            return allArrays;
+        }
     }
 
     @Override
@@ -32,7 +42,7 @@ public class ProcessingDataService implements DataProcessing{
         if (repository.findById(id).isPresent()) {
             return repository.findById(id).get();
         } else {
-            log.info("Data with id: " + id.toString() + " doesn't exist");
+            logger.info("Data with id: {} not found", id);
             throw new NoSuchElementException();
         }
     }
@@ -44,11 +54,11 @@ public class ProcessingDataService implements DataProcessing{
         ArrayEntity arrayEntity = new ArrayEntity(initialData, processedData);
         ArrayEntity savedEntity = repository.save(arrayEntity);
 
-        log.info(String.format("Data with %s saved:  %s Data saved %s %s",
+        logger.info("Data with id: {} was saved, initial data: {}, processing data: {}, created date: {}.",
                 savedEntity.getId(),
                 Arrays.toString(savedEntity.getInitialData()),
                 Arrays.toString(savedEntity.getProcessedData()),
-                savedEntity.getTimestampCreated().toString()));
+                savedEntity.getDateCreated().toString());
     }
 
     @Override
@@ -60,15 +70,16 @@ public class ProcessingDataService implements DataProcessing{
         modifiedArray.setProcessedData(processedData);
         repository.save(modifiedArray);
 
-        log.info(String.format("Array with id: %s, data for modify: %s, Data modified %s %s",
+        logger.info("Array with id: {} was modified, new initial data: {}, new data {}, modified date {}.",
                 modifiedArray.getId(),
                 Arrays.toString(modifiedArray.getInitialData()),
                 Arrays.toString(modifiedArray.getProcessedData()),
-                modifiedArray.getModifiedData().toString()));
+                modifiedArray.getModifiedData().toString());
     }
 
     @Override
     public void deleteArray(ObjectId id) {
         repository.deleteById(id);
+        logger.info("Array with id: {} was deleted.", id);
     }
 }
