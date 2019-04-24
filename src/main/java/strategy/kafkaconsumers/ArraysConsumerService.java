@@ -15,6 +15,9 @@ public class ArraysConsumerService implements ArraysConsume {
     @Autowired
     private DataProcessing processor;
 
+    @Autowired
+    private SpliterFromStringToArray spliter;
+
     @Override
     @KafkaListener(topics = "${kafka.topic.strategy}", groupId = "strategy")
     public void consumeData(ConsumerRecord<String, String> array) {
@@ -24,7 +27,7 @@ public class ArraysConsumerService implements ArraysConsume {
 
     @Override
     public void processingData(String initialArray) {
-        int[] array = SpliterFromStringToArray.splitStringToIntArray(initialArray, ", ");
-//        processor.sortAndSaveArrayOfNumbers(array);
+        int[] arrayForProcessing = spliter.splitStringToIntArray(initialArray);
+        processor.sortAndSaveArrayOfNumbers(arrayForProcessing);
     }
 }
