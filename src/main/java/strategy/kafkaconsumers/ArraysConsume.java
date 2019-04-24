@@ -1,7 +1,9 @@
 package strategy.kafkaconsumers;
 
-public interface ArraysConsume {
-    void consumeData(int[] array);
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 
-    void processingData(int[] initialArray);
+public interface ArraysConsume {
+    void consumeData(ConsumerRecord<String, String> array);
+
+    void processingData(String initialArray);
 }

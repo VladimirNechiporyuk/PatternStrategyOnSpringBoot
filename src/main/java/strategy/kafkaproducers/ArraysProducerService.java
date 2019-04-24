@@ -7,11 +7,13 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import strategy.data.RandomDataGenerator;
 
+import java.util.Arrays;
+
 @Service
 @Slf4j
 public class ArraysProducerService implements ArraysProduce {
 
-    @Value("${randomArrayTOPIC}")
+    @Value("${kafka.topic.strategy}")
     private String kafkaTOPIC;
 
     @Value("${array.length:10}")
@@ -21,14 +23,14 @@ public class ArraysProducerService implements ArraysProduce {
     private int numBound;
 
     @Autowired
-    private KafkaTemplate<String, int[]> kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
     private RandomDataGenerator dataGenerator;
 
     @Override
     public void generateDataAndSendToKafka() {
-        int[] randomArray = dataGenerator.generateData(arrayLength, numBound);
+        String randomArray = Arrays.toString(dataGenerator.generateData(arrayLength, numBound));
         log.info("Data {} generated.", randomArray);
         kafkaTemplate.send(kafkaTOPIC, randomArray);
         log.info("Data {} sent.", randomArray);
