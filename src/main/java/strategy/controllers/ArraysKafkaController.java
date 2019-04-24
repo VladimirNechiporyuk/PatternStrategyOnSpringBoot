@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import strategy.entity.ArrayEntity;
-import strategy.kafkaproducers.ArraysKafkaProduce;
+import strategy.kafkaproducers.ArraysProduce;
 
 @RestController
 @RequestMapping(path = "/randomArray")
 public class ArraysKafkaController {
 
     @Autowired
-    private ArraysKafkaProduce kafkaProducer;
+    private ArraysProduce producer;
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<ArrayEntity> generateArrayAndSendToKafka() {
-        kafkaProducer.generateDataAndSendToKafka();
+        producer.generateDataAndSendToKafka();
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

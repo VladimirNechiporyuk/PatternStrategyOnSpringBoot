@@ -1,5 +1,5 @@
 package strategy.kafkaproducers;
 
-public interface ArraysKafkaProduce {
+public interface ArraysProduce {
     void generateDataAndSendToKafka();
 }

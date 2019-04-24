@@ -9,10 +9,10 @@ import strategy.data.RandomDataGenerator;
 
 @Service
 @Slf4j
-public class ArraysProducerService implements ArraysKafkaProduce {
+public class ArraysProducerService implements ArraysProduce {
 
     @Value("${randomArrayTOPIC}")
-    private static final String kafkaTOPIC = "arrays";
+    private String kafkaTOPIC;
 
     @Value("${array.length:10}")
     private int arrayLength;
