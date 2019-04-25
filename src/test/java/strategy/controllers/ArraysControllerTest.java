@@ -32,7 +32,6 @@ public class ArraysControllerTest {
         processingDataService.sortAndSaveArrayOfNumbers(newArray);
         List<ArrayEntity> result = repository.findAll();
         assertNotNull(result);
-        assertTrue(result.contains(testArray));
     }
 
     @Test

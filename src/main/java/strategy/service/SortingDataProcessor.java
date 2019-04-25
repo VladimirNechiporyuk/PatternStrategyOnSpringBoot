@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import strategy.service.sorting.SortingStrategy;
 
 @Component
-public class SortingDataProcessor implements DataSorting {
+public class SortingDataProcessor implements SortingData {
 
     @Autowired
     private SortingStrategy strategy;

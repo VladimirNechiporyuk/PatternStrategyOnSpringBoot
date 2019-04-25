@@ -1,5 +1,5 @@
 package strategy.service;
 
-public interface DataSorting {
+public interface SortingData {
     int[] sort(int[] array);
 }
