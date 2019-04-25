@@ -27,7 +27,7 @@ public class ArraysConsumerService implements ArraysConsume {
 
     @Override
     public void processingData(String initialArray) {
-        int[] arrayForProcessing = spliter.splitStringToIntArray(initialArray);
+        int[] arrayForProcessing = spliter.splitStringToIntArray(initialArray, ",");
         processor.sortAndSaveArrayOfNumbers(arrayForProcessing);
     }
 }
