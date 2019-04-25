@@ -10,16 +10,13 @@ public class SpliterFromStringToArray {
 
     public int[] splitStringToIntArray(String inputtedString) {
         List<Integer> integers = new ArrayList<>();
-        char[] chars = inputtedString.toCharArray();
-        for (int i = 0; i < inputtedString.length(); i++) {
-            if (Character.isDigit(chars[i])) {
-                integers.add(Character.getNumericValue(chars[i]));
-            }
-        }
-        int[] resultArray = new int[integers.size()];
-        for (int i = 0; i < integers.size(); i++) {
-            resultArray[i] = integers.get(i);
-        }
-        return resultArray;
+        inputtedString.chars()
+                .mapToObj(c -> (char) c)
+                .forEach(character -> {
+                    if (Character.isDigit(character)) {
+                        integers.add(Character.getNumericValue(character));
+                    }
+                });
+        return integers.stream().mapToInt(i -> i).toArray();
     }
 }
